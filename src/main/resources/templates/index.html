@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>House App</title>
+</head>
+<body>
+
+	<div>
+		<h2>All Houses</h2>
+		<ul id="houses" />
+	</div>
+<!-- 	<div> -->
+<!-- 		<h2>Search by ID</h2> -->
+<!-- 		<input type="text" id="prodId" size="5" /> <input type="button" -->
+<!-- 			value="Search" onclick="find();" /> -->
+<!-- 		<p id="house" /> -->
+<!-- 	</div> -->
+
+	<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+	<script>
+		var uri = 'http://localhost:8080/casas';
+
+		$(document).ready(function() {
+			// Send an AJAX request
+			$.getJSON(uri).done(function(data) {
+				// On success, 'data' contains a list of houses.
+				$.each(data, function(key, item) {
+					// Add a list item for the house.
+					$('<li>', {
+						text : formatItem(item)
+					}).appendTo($('#houses'));
+				});
+			}, error());
+		});
+
+		function formatItem(item) {
+			return item.descripcion + ' : ' + item.numero;
+		}
+
+		//function find() {
+			//var id = $('#prodId').val();
+// 			$.getJSON(uri + '/' + id).done(function(data) {
+// 				$('#house').text(formatItem(data));
+// 			}).fail(function(jqXHR, textStatus, err) {
+// 				$('#house').text('Error: ' + err);
+// 			});
+// 		} 
+		//https://programadorburgos.es/blog/consumir-una-api-con-jquery-y-ajax/
+	</script>
+</body>
+</html>
